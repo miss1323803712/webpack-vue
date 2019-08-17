@@ -7,12 +7,12 @@
 </template>
 
 <script>
-  import Hello from './components/hello'
+  import Hello from '../../components/hello'
   export default {
     name: 'App',
     data () {
       return {
-        message: '我是根组件132'
+        message: '我是根组件'
       }
     },
     components: {

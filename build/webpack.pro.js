@@ -1,4 +1,4 @@
-const path = require('path')
+// const path = require('path')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const UglifyjsWebpackPlugin = require('uglifyjs-webpack-plugin')
@@ -7,10 +7,6 @@ const common = require('./webpack.common')
 
 const proConfig = {
   mode: 'production',
-  output: {
-    path: path.resolve(__dirname, '../dist'),
-    filename: './js/bundle[hash].js'
-  },
   module: {
     noParse: /lodash/,
     rules: [
@@ -41,6 +37,15 @@ const proConfig = {
     })
   ],
   optimization: {
+    splitChunks: {
+      cacheGroups: {
+        commons: {
+          name: 'commons',
+          chunks: 'initial',
+          minChunks: 2
+        }
+      }
+    },
     minimizer: [
       new UglifyjsWebpackPlugin({
         cache: true,

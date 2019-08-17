@@ -1,9 +1,19 @@
 const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+// const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const utils = require('./utils')
+
 module.exports = {
-  entry: './src/main.js',
+  // entry: {
+  //   index: './src/views/index/index.js',
+  //   about: './src/views/about/about.js'
+  // },
+  entry: utils.entry,
+  output: {
+    path: path.resolve(__dirname, '../dist'),
+    filename: './js/[name][hash].js'
+  },
   module: {
     noParse: /lodash/,
     rules: [
@@ -75,24 +85,37 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.vue', '.json'],
     alias: {
-      '@': path.resolve(__dirname, 'src/')
+      '@': path.resolve(__dirname, '../src')
     }
   },
   externals: {
     jquery: 'jQuery'
   },
   plugins: [
-    new HtmlWebpackPlugin({
-      filename: 'index.html',
-      title: '哈哈哈哈',
-      template: path.resolve(__dirname, '../index.html'),
-      minify: {
-        collapseWhitespace: true,
-        removeComments: true,
-        removeAttributeQuotes: true // 移除属性的引号
-      }
-    }),
+    // new HtmlWebpackPlugin({
+    //   filename: 'index.html',
+    //   title: '哈哈哈哈',
+    //   template: path.resolve(__dirname, '../src/pages/index.html'),
+    //   chunks: ['index'],
+    //   minify: {
+    //     collapseWhitespace: true,
+    //     removeComments: true,
+    //     removeAttributeQuotes: true // 移除属性的引号
+    //   }
+    // }),
+    // new HtmlWebpackPlugin({
+    //   filename: 'about.html',
+    //   title: '哈哈哈哈',
+    //   template: path.resolve(__dirname, '../src/pages/about.html'),
+    //   chunks: ['about'],
+    //   minify: {
+    //     collapseWhitespace: true,
+    //     removeComments: true,
+    //     removeAttributeQuotes: true // 移除属性的引号
+    //   }
+    // }),
+
     new CleanWebpackPlugin(),
     new VueLoaderPlugin()
-  ]
+  ].concat(utils.plugins)
 }

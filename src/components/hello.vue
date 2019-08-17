@@ -9,8 +9,8 @@
     name: 'hello',
     props: {
       msg: {
-        type: Object,
-        default: () => {}
+        type: String,
+        default: ''
       }
     }
   }
