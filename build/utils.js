@@ -9,7 +9,7 @@ const html = glob.sync('./src/pages/*.html').map(pagePath => {
     filename: filename,
     title: filename,
     template: path.resolve(__dirname, `../src/pages/${filename}`),
-    chunks: [filename.replace(/\.html/, '')],
+    chunks: [filename.replace(/\.html/, ''), 'vue'],
     minify: {
       collapseWhitespace: true,
       removeComments: true,

@@ -5,10 +5,9 @@ const UglifyjsWebpackPlugin = require('uglifyjs-webpack-plugin')
 const WebpackMerge = require('webpack-merge')
 const common = require('./webpack.common')
 const utils = require('./utils')
-
 const proConfig = {
   mode: 'production',
-  entry: utils.entry,
+  entry: Object.assign({}, utils.entry, { vue: 'vue' }),
   module: {
     noParse: /lodash/,
     rules: [
@@ -53,13 +52,20 @@ const proConfig = {
           name: 'common',
           chunks: 'initial',
           minChunks: 2,
-          priority: 100
+          priority: 1
         },
         vendor: {
           chunks: 'all',
           name: 'vendor',
           minChunks: 2,
-          priority: 100
+          priority: 2
+        },
+        vue: {
+          name: 'vue',
+          test: 'vue',
+          enfoce: true,
+          chunks: 'initial',
+          priority: 3
         }
       }
     },
